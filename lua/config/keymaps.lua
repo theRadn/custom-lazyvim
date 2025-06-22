@@ -15,5 +15,4 @@ vim.keymap.set("n", "k", "gk", { noremap = true })
 
 vim.keymap.set("v", "j", "gj", { noremap = true })
 vim.keymap.set("v", "k", "gk", { noremap = true })
-
-vim.opt.clipboard:remove("unnamedplus")
+vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
