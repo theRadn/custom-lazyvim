@@ -16,3 +16,6 @@ vim.keymap.set("n", "k", "gk", { noremap = true })
 vim.keymap.set("v", "j", "gj", { noremap = true })
 vim.keymap.set("v", "k", "gk", { noremap = true })
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
+
+vim.api.nvim_set_keymap("n", "F", ":HopChar2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "f", ":HopChar1<CR>", { silent = true })
