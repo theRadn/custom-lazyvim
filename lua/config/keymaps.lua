@@ -18,7 +18,6 @@ vim.keymap.set("v", "k", "gk", { noremap = true })
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
 -- oil
-require("oil").setup()
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- code-runner
