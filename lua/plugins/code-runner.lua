@@ -19,12 +19,11 @@ return {
       c = function(...)
         c_base = {
           "cd $dir &&",
-          "gcc $fileName -o",
-          "/tmp/$fileNameWithoutExt",
+          "gcc $fileName -g -o",
+          "$fileNameWithoutExt",
         }
         local c_exec = {
-          "&& /tmp/$fileNameWithoutExt &&",
-          "rm /tmp/$fileNameWithoutExt",
+          " && ./$fileNameWithoutExt",
         }
         vim.ui.input({ prompt = "Add more args:" }, function(input)
           c_base[4] = input
