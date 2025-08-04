@@ -12,9 +12,10 @@ return {
         name = "Launch file",
         type = "cppdbg",
         request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
+        -- program = function()
+        --   return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        -- end,
+        program = vim.fn.expand("%:t:r"),
         cwd = "${workspaceFolder}",
         stopAtEntry = true,
       },
