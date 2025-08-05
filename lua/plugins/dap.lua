@@ -5,7 +5,7 @@ return {
     dap.adapters.cppdbg = {
       id = "cppdbg",
       type = "executable",
-      command = "/home/raden/.local/share/nvim/mason/bin/OpenDebugAD7",
+      command = "~/.local/share/nvim/mason/bin/OpenDebugAD7",
     }
     dap.configurations.cpp = {
       {
@@ -22,5 +22,26 @@ return {
     }
     dap.configurations.c = dap.configurations.cpp
     dap.configurations.rust = dap.configurations.cpp
+
+    dap.adapters["pwa-node"] = {
+      type = "server",
+      host = "127.0.0.1",
+      port = 9229,
+      executable = {
+        command = "js-debug-adapter",
+        args = {
+          "9229",
+        },
+      },
+    }
+    dap.configurations.javascript = {
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Launch file",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+      },
+    }
   end,
 }
