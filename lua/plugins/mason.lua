@@ -1,0 +1,14 @@
+return {
+  "mason-org/mason.nvim",
+  opts = {
+    ensure_installed = {
+      "stylua",
+      "shfmt",
+      "clang-format",
+      "clangd",
+      "cpplint",
+      "cpptools",
+      "js-debug-adapter",
+    },
+  },
+}
