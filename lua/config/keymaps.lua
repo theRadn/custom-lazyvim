@@ -20,7 +20,7 @@ vim.keymap.set("v", "k", "gk", { noremap = true })
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
 -- oil
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- code-runner
 vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
