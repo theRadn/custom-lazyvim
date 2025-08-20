@@ -14,3 +14,12 @@ git clone git@github.com:theRadn/custom-lazyvim.git $env:LOCALAPPDATA\nvim
 ```
 rm -rf ~/.config/nvim
 ```
+
+*Dependency*
+```
+ripgrep
+fd-find
+nodejs
+npm
+python3-venv
+```
