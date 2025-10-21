@@ -11,4 +11,5 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.relativenumber = true
 vim.opt.conceallevel = 0
 vim.opt.wrap = true
+vim.opt.breakindent = true
 vim.g.autoformat = false
