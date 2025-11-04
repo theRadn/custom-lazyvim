@@ -5,8 +5,8 @@ return {
     filetype = {
       java = {
         "cd $dir &&",
-        "/usr/bin/javac $fileName &&",
-        "/usr/bin/java $fileNameWithoutExt",
+        "javac $fileName &&",
+        "java $fileNameWithoutExt",
       },
       python = "python3 -u",
       typescript = "deno run",
