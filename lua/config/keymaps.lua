@@ -30,3 +30,5 @@ vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = 
 vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
 vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
 vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
+
+vim.keymap.set("n", "<leader>ut", "<cmd>ToggleBufferline<CR>", { desc = "Toggle Bufferline", noremap = true, silent = true })
