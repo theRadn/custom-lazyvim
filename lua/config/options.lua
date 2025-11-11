@@ -12,4 +12,5 @@ vim.opt.relativenumber = true
 vim.opt.conceallevel = 0
 vim.opt.wrap = true
 vim.opt.breakindent = true
+vim.opt.scrolloff = 999
 vim.g.autoformat = false
