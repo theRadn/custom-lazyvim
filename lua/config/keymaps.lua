@@ -19,6 +19,11 @@ vim.keymap.set("v", "j", "gj", { noremap = true })
 vim.keymap.set("v", "k", "gk", { noremap = true })
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
+vim.keymap.set('n', '<C-j>', '}', { noremap = true })
+vim.keymap.set('n', '<C-k>', '{', { noremap = true })
+vim.keymap.set('v', '<C-j>', '}', { noremap = true })
+vim.keymap.set('v', '<C-k>', '{', { noremap = true })
+
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
