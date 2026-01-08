@@ -26,6 +26,7 @@ vim.keymap.set('v', '<C-k>', '{', { noremap = true })
 
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<leader>'", "<cmd>cd %:p:h<cr>", { desc = "Change directory to current file" })
 
 -- code-runner
 vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
