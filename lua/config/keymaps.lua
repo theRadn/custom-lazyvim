@@ -15,8 +15,6 @@ vim.keymap.set("i", "jj", "<Esc>", { noremap = true })
 vim.keymap.set("n", "j", "gj", { noremap = true })
 vim.keymap.set("n", "k", "gk", { noremap = true })
 
-vim.keymap.set("v", "j", "gj", { noremap = true })
-vim.keymap.set("v", "k", "gk", { noremap = true })
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
 vim.keymap.set('n', '<C-j>', '}', { noremap = true })
