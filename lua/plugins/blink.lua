@@ -19,16 +19,27 @@ return {
           },
         },
       },
+      ghost_text = { enabled = false },
+      trigger = {
+        show_on_blocked_trigger_characters = { " ", "\n", "\t", ";" },
+      },
     },
     snippets = {
       preset = "luasnip",
     },
-    cmdline = { enabled = true },
+    cmdline = {
+      enabled = true,
+      completion = { menu = { auto_show = true } },
+      keymap = {
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<Up>"] = { "select_prev", "fallback" },
+      },
+    },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       providers = {
         snippets = {
-          score_offset = 100,
+          -- score_offset = 100,
           override = {
             get_trigger_characters = function()
               return { "#", ";", "@", "!", "." }
@@ -36,10 +47,17 @@ return {
           },
         },
         lsp = {
-          score_offset = 0,
+          -- score_offset = 0,
         },
         buffer = {
-          score_offset = 0,
+          -- score_offset = 0,
+          opts = {
+            get_bufnrs = function()
+              return vim.tbl_filter(function(bufnr)
+                return vim.bo[bufnr].buftype == ""
+              end, vim.api.nvim_list_bufs())
+            end,
+          },
         },
       },
     },
