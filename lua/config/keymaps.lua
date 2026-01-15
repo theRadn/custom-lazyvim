@@ -17,10 +17,12 @@ vim.keymap.set("n", "k", "gk", { noremap = true })
 
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
-vim.keymap.set('n', '<C-j>', '}', { noremap = true })
-vim.keymap.set('n', '<C-k>', '{', { noremap = true })
-vim.keymap.set('v', '<C-j>', '}', { noremap = true })
-vim.keymap.set('v', '<C-k>', '{', { noremap = true })
+vim.keymap.set("n", "<C-j>", "}", { noremap = true })
+vim.keymap.set("n", "<C-k>", "{", { noremap = true })
+vim.keymap.set("v", "<C-j>", "}", { noremap = true })
+vim.keymap.set("v", "<C-k>", "{", { noremap = true })
+
+vim.keymap.set('c', '<C-H>', '<C-w>', { noremap = true })
 
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -35,4 +37,20 @@ vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = fa
 vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
 vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
 
-vim.keymap.set("n", "<leader>ut", "<cmd>ToggleBufferline<CR>", { desc = "Toggle Bufferline", noremap = true, silent = true })
+vim.keymap.set(
+  "n",
+  "<leader>ut",
+  "<cmd>ToggleBufferline<CR>",
+  { desc = "Toggle Bufferline", noremap = true, silent = true }
+)
+
+-- copilot
+vim.keymap.set("n", "<leader>ct", function()
+  require("copilot.suggestion").toggle_auto_trigger()
+
+  if vim.b.copilot_suggestion_auto_trigger then
+    print("Copilot: Auto-Trigger ON")
+  else
+    print("Copilot: Auto-Trigger OFF")
+  end
+end, { desc = "Toggle Copilot Auto-Trigger with Message" })
