@@ -13,6 +13,7 @@ return {
       "html-lsp",
       "css-lsp",
       "json-lsp",
+      "tailwindcss-language-server",
     },
   },
 }
