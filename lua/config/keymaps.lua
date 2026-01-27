@@ -22,7 +22,18 @@ vim.keymap.set("n", "<Down>", "10j", { noremap = true })
 vim.keymap.set("v", "<Up>", "10k", { noremap = true })
 vim.keymap.set("v", "<Down>", "10j", { noremap = true })
 
+vim.keymap.set("n", "<Left>", "/", { noremap = true })
+vim.keymap.set("v", "<Left>", "/", { noremap = true })
+
 vim.keymap.set('c', '<C-H>', '<C-w>', { noremap = true })
+
+-- neovide
+if vim.g.neovide then
+    vim.keymap.set('i', '<C-Backspace>', '<C-W>', { noremap = true, silent = true })
+    vim.keymap.set({'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't'}, '<C-S-V>', function()
+        vim.api.nvim_paste(vim.fn.getreg('+'), true, -1)
+    end, { noremap = true, silent = true })
+end
 
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
