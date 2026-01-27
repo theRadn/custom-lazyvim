@@ -17,10 +17,10 @@ vim.keymap.set("n", "k", "gk", { noremap = true })
 
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
-vim.keymap.set("n", "<C-j>", "}", { noremap = true })
-vim.keymap.set("n", "<C-k>", "{", { noremap = true })
-vim.keymap.set("v", "<C-j>", "}", { noremap = true })
-vim.keymap.set("v", "<C-k>", "{", { noremap = true })
+vim.keymap.set("n", "<Up>", "10k", { noremap = true })
+vim.keymap.set("n", "<Down>", "10j", { noremap = true })
+vim.keymap.set("v", "<Up>", "10k", { noremap = true })
+vim.keymap.set("v", "<Down>", "10j", { noremap = true })
 
 vim.keymap.set('c', '<C-H>', '<C-w>', { noremap = true })
 
