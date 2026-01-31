@@ -7,7 +7,6 @@ return {
       "clang-format",
       "clangd",
       "cpplint",
-      "cpptools",
       "js-debug-adapter",
       "typescript-language-server",
       "html-lsp",
