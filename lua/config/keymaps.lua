@@ -27,11 +27,12 @@ vim.keymap.set("v", "<Left>", "/", { noremap = true })
 
 vim.keymap.set('c', '<C-H>', '<C-w>', { noremap = true })
 
+vim.keymap.set('i', '<C-Backspace>', '<C-W>', { noremap = true, silent = true })
+
 -- neovide
 if vim.g.neovide then
-    vim.keymap.set('i', '<C-Backspace>', '<C-W>', { noremap = true, silent = true })
     vim.keymap.set({'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't'}, '<C-S-V>', function()
-        vim.api.nvim_paste(vim.fn.getreg('+'), true, -1)
+    vim.api.nvim_paste(vim.fn.getreg('+'), true, -1)
     end, { noremap = true, silent = true })
 end
 
