@@ -10,7 +10,15 @@ return {
           auto_insert = false,
         },
       },
-      documentation = { auto_show = false, auto_show_delay_ms = 10 },
+      documentation = {
+        auto_show = false,
+        auto_show_delay_ms = 200,
+        window = {
+          min_width = 1,
+          max_width = 40,
+          max_height = 5,
+        },
+      },
       menu = {
         max_height = 5,
         draw = {
@@ -37,6 +45,16 @@ return {
       ghost_text = { enabled = false },
       trigger = {
         show_on_blocked_trigger_characters = { " ", "\n", "\t", ";" },
+      },
+    },
+    signature = {
+      enabled = false,
+      trigger = { enabled = false },
+      window = {
+        min_width = 1,
+        max_width = 40,
+        max_height = 5,
+        show_documentation = false,
       },
     },
     keymap = {
