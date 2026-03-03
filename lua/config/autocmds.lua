@@ -17,3 +17,11 @@ vim.api.nvim_create_user_command('ToggleBufferline', function()
   end
 end, {})
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    -- Change 'fg' to your preferred hex code
+    vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#999999" })
+  end,
+})
+
