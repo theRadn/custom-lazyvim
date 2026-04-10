@@ -40,6 +40,6 @@ return
     return opts
   end,
   keys = {
-    { "<leader>a", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+    { "<leader>a", "<cmd>AerialNavToggle<cr>", desc = "Aerial (Symbols)" },
   },
 }
