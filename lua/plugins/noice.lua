@@ -11,16 +11,23 @@ return {
             if client ~= "jdtls" then
               return false
             end
-
             local content = vim.tbl_get(message.opts, "progress", "message")
             if content == nil then
               return false
             end
-
             return string.find(content, "Validate") or string.find(content, "Publish")
           end,
         },
         opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "notify",
+        },
+        view = "notify",
+        opts = {
+          replace = true,
+        },
       },
     },
     lsp = {
