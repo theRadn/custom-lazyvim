@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      autoformat = true,
+      autoformat = false,
       inlay_hints = {
         enabled = false,
       },

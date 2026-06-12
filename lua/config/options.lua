@@ -13,11 +13,10 @@ vim.opt.conceallevel = 0
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.scrolloff = 999
-vim.g.autoformat = true
+vim.g.autoformat = false
 vim.g.ai_cmp = false
-if vim.fn.has('win32') == 1 then
-  vim.o.shell = 'powershell.exe'
+if vim.fn.has("win32") == 1 then
+  vim.o.shell = "powershell.exe"
 else
-  vim.o.shell = '/bin/bash'
+  vim.o.shell = "/bin/bash"
 end
-

@@ -42,6 +42,9 @@ end
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<leader>'", "<cmd>cd %:p:h<cr>", { desc = "Change directory to current file" })
+vim.keymap.set("n", "<leader>t", function()
+  Snacks.terminal(nil, { cwd = vim.fn.expand("%:p:h") })
+end, { desc = "Terminal in file directory" })
 
 -- code-runner
 vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
@@ -69,3 +72,14 @@ vim.keymap.set("n", "<leader>ct", function()
     print("Copilot: Auto-Trigger OFF")
   end
 end, { desc = "Toggle Copilot Auto-Trigger with Message" })
+
+-- terminal
+vim.keymap.set({ "n", "t" }, "<M-o>", function()
+  Snacks.terminal.open(nil, { win = { position = "bottom", width = 0.4 }, cwd = vim.fn.expand("%:p:h") })
+end, { desc = "New Terminal (Bottom)" })
+vim.keymap.set({ "n", "t" }, "<M-i>", function()
+  Snacks.terminal.open(nil, { win = { position = "right", width = 0.4 }, cwd = vim.fn.expand("%:p:h") })
+end, { desc = "New Terminal (Right)" })
+vim.keymap.set({ "t" }, "<C-d>", function()
+  Snacks.terminal.toggle()
+end, { desc = "Toggle Terminal" })
