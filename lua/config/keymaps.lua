@@ -83,3 +83,27 @@ end, { desc = "New Terminal (Right)" })
 vim.keymap.set({ "t" }, "<C-d>", function()
   Snacks.terminal.toggle()
 end, { desc = "Toggle Terminal" })
+
+-- vscode
+if vim.g.vscode then
+    local vscode = require('vscode')
+
+    vim.keymap.set('n', '<leader><leader>', function()
+        vscode.call('fzf-quick-open.runFzfFileProjectRoot')
+    end)
+    vim.keymap.set('n', '<leader>sg', function()
+        vscode.call('fzf-quick-open.runFzfSearchProjectRoot')
+    end)
+    vim.keymap.set('n', '<leader>a', function()
+        vscode.call('workbench.action.gotoSymbol')
+    end)
+    vim.keymap.set('n', "'", function()
+        vscode.call('oil-code.open')
+    end)
+    vim.keymap.set('n', "<C-c>", function()
+        vscode.call('editor.action.clipboardCopyAction')
+    end)
+    vim.keymap.set('n', "<leader>p", function()
+        vscode.call('editor.action.inlineSuggest.commit')
+    end)
+end
