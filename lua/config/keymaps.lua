@@ -39,6 +39,12 @@ if vim.g.neovide then
   vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-V>", function()
     vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
   end, { noremap = true, silent = true })
+  vim.keymap.set("n", "<C-->", function()
+    vim.g.neovide_scale_factor = (vim.g.neovide_scale_factor or 1) * 0.9
+  end)
+  vim.keymap.set("n", "<C-=>", function()
+    vim.g.neovide_scale_factor = (vim.g.neovide_scale_factor or 1) * 1.1
+  end)
 end
 
 -- oil
