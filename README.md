@@ -22,4 +22,6 @@ fd-find
 nodejs
 npm
 python3-venv
+c compiler
+libtexprintf (for latex math equation in markdown)
 ```
