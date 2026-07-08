@@ -55,13 +55,17 @@ vim.keymap.set("n", "<leader>t", function()
 end, { desc = "Terminal in file directory" })
 
 -- code-runner
-vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
+-- vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
+
+vim.keymap.set("n", "<leader>rr", function()
+  require("util.run-code").run()
+end, { desc = "Run Code in Snacks" })
 
 vim.keymap.set(
   "n",
@@ -119,5 +123,8 @@ if vim.g.vscode then
     end)
     vim.keymap.set('n', "<cr>", function()
         vscode.call('oil-code.select')
+    end)
+    vim.keymap.set('n', '<leader>rr', function()
+        vscode.call('code-runner.run')
     end)
 end
