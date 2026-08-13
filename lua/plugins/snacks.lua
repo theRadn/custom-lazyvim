@@ -8,5 +8,14 @@ return {
         easing = "linear",
       },
     },
+    picker = {
+      win = {
+        input = {
+          keys = {
+            ["<C-h>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "delete word" },
+          },
+        },
+      },
+    },
   },
 }
