@@ -1,5 +1,8 @@
 return {
   "saghen/blink.cmp",
+  dependencies = {
+    "giuxtaposition/blink-cmp-copilot",
+  },
   opts = {
     completion = {
       list = {
@@ -11,16 +14,16 @@ return {
         },
       },
       documentation = {
-        auto_show = false,
-        auto_show_delay_ms = 200,
+        auto_show = true,
+        auto_show_delay_ms = 0,
         window = {
           min_width = 1,
-          max_width = 40,
-          max_height = 5,
+          max_width = 80,
+          max_height = 20,
         },
       },
       menu = {
-        max_height = 5,
+        max_height = 10,
         draw = {
           columns = {
             { "item_idx", gap = 0 },
@@ -108,6 +111,24 @@ return {
           cmp.accept({ index = 10 })
         end,
       },
+      ["<Tab>"] = {
+        function(cmp)
+          if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+            cmp.hide()
+            return (
+              require("copilot-lsp.nes").apply_pending_nes()
+              and require("copilot-lsp.nes").walk_cursor_end_edit()
+            )
+          end
+          if cmp.snippet_active() then
+            return cmp.accept()
+          else
+            return cmp.select_and_accept()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
     },
     snippets = {
       preset = "luasnip",
@@ -171,7 +192,7 @@ return {
       },
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer", "copilot" },
       providers = {
         snippets = {
           -- score_offset = 100,
@@ -193,6 +214,12 @@ return {
               end, vim.api.nvim_list_bufs())
             end,
           },
+        },
+        copilot = {
+          name = "copilot",
+          module = "blink-cmp-copilot",
+          score_offset = 100,
+          async = true,
         },
       },
     },
