@@ -29,17 +29,29 @@ local function get_win_shell()
   return vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell.exe"
 end
 
-local function runner_for(ft, file)
+local function runner_for(ft, file, cwd)
   local basename = vim.fn.fnamemodify(file, ":t:r")
   local exe = basename .. (is_win and ".exe" or "")
-  
+
   local q_file = quote(file)
   local q_exe = quote(exe)
   local q_basename = quote(basename)
 
+  local python_exe = "python"
+  if ft == "python" then
+    local venv_path = cwd .. (is_win and "\\.venv" or "/.venv")
+    if vim.fn.isdirectory(venv_path) == 1 then
+      python_exe = venv_path .. (is_win and "\\Scripts\\python.exe" or "/bin/python")
+    elseif not is_win then
+      if vim.fn.executable("python") == 0 and vim.fn.executable("python3") == 1 then
+        python_exe = "python3"
+      end
+    end
+  end
+
   local runners = {
     lua = { "lua", file },
-    python = { "python", file },
+    python = { python_exe, file },
     javascript = { "node", file },
     javascriptreact = { "node", file },
     typescript = { "node", file },
@@ -74,15 +86,14 @@ function M.run()
   vim.cmd("write")
 
   local ft = vim.bo.filetype
-  local cmd = runner_for(ft, file)
+  local cwd = vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json", ".venv" }) or vim.fn.getcwd()
+  local cmd = runner_for(ft, file, cwd)
 
   if not cmd then
     vim.notify("No runner configured for filetype: " .. ft, vim.log.levels.WARN)
     return
   end
 
-  local cwd = vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json" }) or vim.fn.getcwd()
-  
   local cmd_str = type(cmd) == "table" and join_args(cmd) or cmd
   local terminal_cmd
 
