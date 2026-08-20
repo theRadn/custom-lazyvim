@@ -71,6 +71,10 @@ vim.keymap.set("n", "<leader>fy", function()
   require("util.file-reader").copy_multiple_files_content()
 end, { desc = "Copy Multiple File Contents to Clipboard" })
 
+vim.keymap.set("n", "<leader>fl", function()
+  require("util.format-list").expand_inline_list()
+end, { desc = "Expand / format inline list" })
+
 vim.keymap.set(
   "n",
   "<leader>ut",
