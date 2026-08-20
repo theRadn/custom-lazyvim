@@ -1,3 +1,4 @@
+-- lua/util/format_list.lua
 local M = {}
 
 function M.expand_inline_list()
@@ -10,7 +11,8 @@ function M.expand_inline_list()
   -- Match prefix, container opening/closing, contents, and allow optional trailing commas/whitespace
   local prefix, open_char, content, close_char = trimmed_line:match("^(.-)(%[)(.-)(%])%s*,?%s*$")
   if not content then
-    prefix, open_char, content, close_char = trimmed_line:match("^(.-)(%()(.-)(%)$)")
+    -- Fixed: added %s*,?%s*$ here so it handles trailing commas/spaces for parentheses too
+    prefix, open_char, content, close_char = trimmed_line:match("^(.-)(%()(.-)(%))%s*,?%s*$")
   end
   if not content then
     prefix, open_char, content, close_char = trimmed_line:match("^(.-)({)(.-)(})%s*,?%s*$")
