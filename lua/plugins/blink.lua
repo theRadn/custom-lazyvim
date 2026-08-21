@@ -3,6 +3,7 @@ return {
   dependencies = {
     "giuxtaposition/blink-cmp-copilot",
   },
+  version = "1.*",
   opts = {
     completion = {
       list = {
@@ -47,7 +48,15 @@ return {
       },
       ghost_text = { enabled = false },
       trigger = {
-        show_on_blocked_trigger_characters = { " ", "\n", "\t", ";" },
+        prefetch_on_insert = true,
+        show_in_snippet = true,
+        show_on_backspace = true,
+        show_on_backspace_in_keyword = true,
+        show_on_backspace_after_accept = true,
+        show_on_backspace_after_insert_enter = true,
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+        show_on_blocked_trigger_characters = { "\n", "\t", ";" },
       },
     },
     signature = {
