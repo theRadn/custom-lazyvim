@@ -19,13 +19,10 @@ vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true })
 
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
-vim.keymap.set("n", "<Up>", "10k", { noremap = true })
-vim.keymap.set("n", "<Down>", "10j", { noremap = true })
-vim.keymap.set("v", "<Up>", "10k", { noremap = true })
-vim.keymap.set("v", "<Down>", "10j", { noremap = true })
-
-vim.keymap.set("n", "<Left>", "/", { noremap = true })
-vim.keymap.set("v", "<Left>", "/", { noremap = true })
+-- vim.keymap.set("n", "<Up>", "10k", { noremap = true })
+-- vim.keymap.set("n", "<Down>", "10j", { noremap = true })
+-- vim.keymap.set("v", "<Up>", "10k", { noremap = true })
+-- vim.keymap.set("v", "<Down>", "10j", { noremap = true })
 
 vim.keymap.set("c", "<C-H>", "<C-w>", { noremap = true })
 
@@ -81,6 +78,18 @@ vim.keymap.set(
   "<cmd>ToggleBufferline<CR>",
   { desc = "Toggle Bufferline", noremap = true, silent = true }
 )
+
+-- treewalker
+-- movement
+vim.keymap.set({ 'n', 'v' }, '<Up>', '<cmd>Treewalker Up<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Down>', '<cmd>Treewalker Down<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Left>', '<cmd>Treewalker Left<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Right>', '<cmd>Treewalker Right<cr>', { silent = true })
+-- swapping
+vim.keymap.set('n', '<S-Up>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
+vim.keymap.set('n', '<S-Down>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
+vim.keymap.set('n', '<S-Left>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
+vim.keymap.set('n', '<S-Right>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
 
 -- copilot
 vim.keymap.set("n", "<leader>ct", function()
