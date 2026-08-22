@@ -6,11 +6,13 @@ return {
   version = "1.*",
   opts = {
     completion = {
+      keyword = { range = "full", },
       list = {
         selection = {
-          preselect = function()
-            return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
-          end,
+          -- preselect = function()
+          --   return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
+          -- end,
+          preselect = true,
           auto_insert = false,
         },
       },
@@ -24,6 +26,7 @@ return {
         },
       },
       menu = {
+        auto_show = false,
         max_height = 10,
         draw = {
           columns = {
@@ -46,7 +49,11 @@ return {
           },
         },
       },
-      ghost_text = { enabled = false },
+      ghost_text = {
+        enabled = true,
+        show_with_menu = true,
+        show_without_menu = true,
+      },
       trigger = {
         prefetch_on_insert = true,
         show_in_snippet = true,
@@ -70,56 +77,7 @@ return {
       },
     },
     keymap = {
-      ["<A-1>"] = {
-        function(cmp)
-          cmp.accept({ index = 1 })
-        end,
-      },
-      ["<A-2>"] = {
-        function(cmp)
-          cmp.accept({ index = 2 })
-        end,
-      },
-      ["<A-3>"] = {
-        function(cmp)
-          cmp.accept({ index = 3 })
-        end,
-      },
-      ["<A-4>"] = {
-        function(cmp)
-          cmp.accept({ index = 4 })
-        end,
-      },
-      ["<A-5>"] = {
-        function(cmp)
-          cmp.accept({ index = 5 })
-        end,
-      },
-      ["<A-6>"] = {
-        function(cmp)
-          cmp.accept({ index = 6 })
-        end,
-      },
-      ["<A-7>"] = {
-        function(cmp)
-          cmp.accept({ index = 7 })
-        end,
-      },
-      ["<A-8>"] = {
-        function(cmp)
-          cmp.accept({ index = 8 })
-        end,
-      },
-      ["<A-9>"] = {
-        function(cmp)
-          cmp.accept({ index = 9 })
-        end,
-      },
-      ["<A-0>"] = {
-        function(cmp)
-          cmp.accept({ index = 10 })
-        end,
-      },
+      preset = "none",
       ["<Tab>"] = {
         function(cmp)
           if vim.b[vim.api.nvim_get_current_buf()].nes_state then
@@ -129,15 +87,20 @@ return {
               and require("copilot-lsp.nes").walk_cursor_end_edit()
             )
           end
-          if cmp.snippet_active() then
-            return cmp.accept()
-          else
-            return cmp.select_and_accept()
-          end
         end,
-        "snippet_forward",
         "fallback",
       },
+      ["<C-n>"] = { "select_next", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-space>"] = { "show", "hide" },
+      ["<C-e>"] = { "hide", "fallback" },
+      ["<C-y>"] = { "select_and_accept", "fallback" },
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+      ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+      ["<CR>"] = { "select_and_accept", "fallback" }
     },
     snippets = {
       preset = "luasnip",
@@ -148,56 +111,6 @@ return {
       keymap = {
         ["<Down>"] = { "select_next", "fallback" },
         ["<Up>"] = { "select_prev", "fallback" },
-        ["<A-1>"] = {
-          function(cmp)
-            cmp.accept({ index = 1 })
-          end,
-        },
-        ["<A-2>"] = {
-          function(cmp)
-            cmp.accept({ index = 2 })
-          end,
-        },
-        ["<A-3>"] = {
-          function(cmp)
-            cmp.accept({ index = 3 })
-          end,
-        },
-        ["<A-4>"] = {
-          function(cmp)
-            cmp.accept({ index = 4 })
-          end,
-        },
-        ["<A-5>"] = {
-          function(cmp)
-            cmp.accept({ index = 5 })
-          end,
-        },
-        ["<A-6>"] = {
-          function(cmp)
-            cmp.accept({ index = 6 })
-          end,
-        },
-        ["<A-7>"] = {
-          function(cmp)
-            cmp.accept({ index = 7 })
-          end,
-        },
-        ["<A-8>"] = {
-          function(cmp)
-            cmp.accept({ index = 8 })
-          end,
-        },
-        ["<A-9>"] = {
-          function(cmp)
-            cmp.accept({ index = 9 })
-          end,
-        },
-        ["<A-0>"] = {
-          function(cmp)
-            cmp.accept({ index = 10 })
-          end,
-        },
       },
     },
     sources = {
