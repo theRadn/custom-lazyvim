@@ -61,6 +61,7 @@ local function runner_for(ft, file, cwd)
     zsh = { "zsh", file },
     ps1 = { is_win and get_win_shell() or "pwsh", "-File", file },
     powershell = { is_win and get_win_shell() or "pwsh", "-File", file },
+    rust = { "cargo", "run" },
   }
 
   if is_win then
