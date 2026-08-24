@@ -12,7 +12,7 @@ vim.opt.relativenumber = true
 vim.opt.conceallevel = 0
 vim.opt.wrap = true
 vim.opt.breakindent = true
-vim.opt.scrolloff = 999
+-- vim.opt.scrolloff = 999
 vim.g.autoformat = false
 vim.g.ai_cmp = false
 if vim.fn.has("win32") == 1 then
