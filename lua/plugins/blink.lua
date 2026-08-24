@@ -6,13 +6,13 @@ return {
   version = "1.*",
   opts = {
     completion = {
-      keyword = { range = "full", },
+      keyword = { range = "full" },
       list = {
         selection = {
-          -- preselect = function()
-          --   return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
-          -- end,
-          preselect = true,
+          preselect = function()
+            return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
+          end,
+          -- preselect = false,
           auto_insert = false,
         },
       },
@@ -26,7 +26,7 @@ return {
         },
       },
       menu = {
-        auto_show = false,
+        auto_show = true,
         max_height = 10,
         draw = {
           columns = {
@@ -50,7 +50,7 @@ return {
         },
       },
       ghost_text = {
-        enabled = true,
+        enabled = false,
         show_with_menu = true,
         show_without_menu = true,
       },
@@ -79,15 +79,7 @@ return {
     keymap = {
       preset = "none",
       ["<Tab>"] = {
-        function(cmp)
-          if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-            cmp.hide()
-            return (
-              require("copilot-lsp.nes").apply_pending_nes()
-              and require("copilot-lsp.nes").walk_cursor_end_edit()
-            )
-          end
-        end,
+        LazyVim.cmp.map({ "ai_accept", "ai_nes" }),
         "fallback",
       },
       ["<C-n>"] = { "select_next", "fallback" },
@@ -100,7 +92,7 @@ return {
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-      ["<CR>"] = { "select_and_accept", "fallback" }
+      ["<CR>"] = { "select_and_accept", "fallback" },
     },
     snippets = {
       preset = "luasnip",
@@ -114,7 +106,7 @@ return {
       },
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "copilot" },
+      default = { "lsp", "path", "snippets", "buffer" },
       providers = {
         snippets = {
           -- score_offset = 100,
@@ -137,12 +129,12 @@ return {
             end,
           },
         },
-        copilot = {
-          name = "copilot",
-          module = "blink-cmp-copilot",
-          score_offset = 100,
-          async = true,
-        },
+        -- copilot = {
+        --   name = "copilot",
+        --   module = "blink-cmp-copilot",
+        --   score_offset = 100,
+        --   async = true,
+        -- },
       },
     },
   },

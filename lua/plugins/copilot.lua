@@ -10,14 +10,14 @@ return {
   event = "InsertEnter",
   opts = {
     suggestion = {
-      enabled = false,
+      enabled = true,
       auto_trigger = true,
     },
     panel = {
       enabled = false,
     },
     nes = {
-      move_count_threshold = 10,
+      move_count_threshold = 9999,
       enabled = true,
       keymap = {
         accept_and_goto = "<leader>p",
