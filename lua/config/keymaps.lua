@@ -79,6 +79,15 @@ vim.keymap.set(
   { desc = "Toggle Bufferline", noremap = true, silent = true }
 )
 
+vim.keymap.set("n", "<leader>st", function()
+  Snacks.picker.treesitter()
+end, { desc = "Search Treesitter Nodes" })
+
+-- vim.keymap.set("n", "<leader>st", function()
+--   local ft = vim.bo.filetype
+--   Snacks.picker.treesitter({ filter = { [ft] = true } })
+-- end, { desc = "Search All Treesitter Nodes" })
+
 -- treewalker
 -- movement
 vim.keymap.set({ 'n', 'v' }, '<Up>', '<cmd>Treewalker Up<cr>', { silent = true })
