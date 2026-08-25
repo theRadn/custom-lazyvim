@@ -3,6 +3,11 @@ return {
   dependencies = {
     {
       "copilotlsp-nvim/copilot-lsp",
+      opts = {
+        nes = {
+          move_count_threshold = 9999,
+        },
+      },
     },
   },
   enabled = true,
@@ -15,15 +20,6 @@ return {
     },
     panel = {
       enabled = false,
-    },
-    nes = {
-      move_count_threshold = 9999,
-      enabled = true,
-      keymap = {
-        accept_and_goto = "<leader>p",
-        accept = false,
-        dismiss = "<Esc>",
-      },
     },
     server_opts_overrides = {
       settings = {
