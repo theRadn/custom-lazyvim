@@ -4,9 +4,9 @@
 --
 
 vim.opt.clipboard = ""
-vim.opt.tabstop = 4 -- Number of visual spaces per TAB
-vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
-vim.opt.softtabstop = 4 -- Number of spaces a <Tab> counts for while editing
+vim.opt.tabstop = 2 -- Number of visual spaces per TAB
+vim.opt.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
+vim.opt.softtabstop = 2 -- Number of spaces a <Tab> counts for while editing
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.relativenumber = true
 vim.opt.conceallevel = 0
