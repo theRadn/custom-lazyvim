@@ -107,14 +107,32 @@ end, { desc = "Toggle Copilot Auto-Trigger with Message" })
 
 -- terminal
 vim.keymap.set({ "n", "t" }, "<M-o>", function()
-  Snacks.terminal.open(nil, { win = { position = "bottom", width = 0.4 }, cwd = vim.fn.expand("%:p:h") })
+  local current_file = vim.fn.expand("%:p")
+  local cwd = (current_file ~= "" and vim.bo.buftype == "") 
+    and vim.fn.fnamemodify(current_file, ":h") 
+    or (vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json" }) or vim.fn.getcwd())
+  Snacks.terminal.open(nil, { 
+    win = { position = "bottom", width = 0.4 }, 
+    cwd = cwd 
+  })
 end, { desc = "New Terminal (Bottom)" })
+
 vim.keymap.set({ "n", "t" }, "<M-i>", function()
-  Snacks.terminal.open(nil, { win = { position = "right", width = 0.4 }, cwd = vim.fn.expand("%:p:h") })
+  local current_file = vim.fn.expand("%:p")
+  local cwd = (current_file ~= "" and vim.bo.buftype == "") 
+    and vim.fn.fnamemodify(current_file, ":h") 
+    or (vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json" }) or vim.fn.getcwd())
+  Snacks.terminal.open(nil, { win = { position = "right", width = 0.4 }, cwd = cwd })
 end, { desc = "New Terminal (Right)" })
-vim.keymap.set({ "t" }, "<C-d>", function()
-  Snacks.terminal.toggle()
-end, { desc = "Toggle Terminal" })
+
+vim.keymap.set("t", "<C-d>", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.bo[bufnr].buftype == "terminal" then
+    vim.api.nvim_buf_delete(bufnr, { force = true })
+  else
+    vim.notify("Current buffer is not a terminal", vim.log.levels.WARN)
+  end
+end, { desc = "Kill Terminal Process & Close" })
 
 -- vscode
 if vim.g.vscode then

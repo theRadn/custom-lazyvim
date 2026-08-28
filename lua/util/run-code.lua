@@ -99,7 +99,7 @@ function M.run()
   local terminal_cmd
 
   if is_win then
-    local ps_cmd = string.format("& { Set-Location %s; %s }", quote(cwd), cmd_str)
+    local ps_cmd = string.format("& { Set-Location %s; %s }; $host.ui.rawui.readkey('NoEcho,IncludeKeyDown') | Out-Null", quote(cwd), cmd_str)
     terminal_cmd = {
       get_win_shell(),
       "-NoLogo",
@@ -110,7 +110,7 @@ function M.run()
       ps_cmd,
     }
   else
-    local bash_cmd = string.format("cd %s && %s", quote(cwd), cmd_str)
+    local bash_cmd = string.format("cd %s && (%s); echo ''; echo '[Process completed. Press Enter or type commands]'; exec ${SHELL:-bash}", quote(cwd), cmd_str)
     terminal_cmd = {
       "bash",
       "-c",
@@ -121,6 +121,9 @@ function M.run()
   local terminal_opts = {
     cwd = cwd,
     auto_close = false,
+    win = {
+      position = "bottom",
+    },
   }
 
   if type(Snacks) == "table" and Snacks.terminal then

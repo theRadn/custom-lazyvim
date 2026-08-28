@@ -18,5 +18,9 @@ vim.g.ai_cmp = false
 if vim.fn.has("win32") == 1 then
   vim.o.shell = "powershell.exe"
 else
-  vim.o.shell = "/bin/bash"
+  if vim.fn.executable("zsh") == 1 then
+    vim.o.shell = "/bin/zsh"
+  else
+    vim.o.shell = "/bin/bash"
+  end
 end
