@@ -3,6 +3,9 @@ return {
   dependencies = {
     "giuxtaposition/blink-cmp-copilot",
   },
+  cond = function()
+    return not vim.g.vscode
+  end,
   version = "1.*",
   opts = {
     completion = {

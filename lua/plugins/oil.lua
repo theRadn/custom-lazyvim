@@ -1,6 +1,9 @@
 return {
   "stevearc/oil.nvim",
   dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+  cond = function()
+    return not vim.g.vscode
+  end,
   lazy = false,
   opts = {
     view_options = {
@@ -49,6 +52,6 @@ return {
         end,
         desc = "Open Terminal in Current Oil Dir",
       },
-    }
+    },
   },
 }

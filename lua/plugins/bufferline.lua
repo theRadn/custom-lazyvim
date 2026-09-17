@@ -1,4 +1,7 @@
 return {
-    "akinsho/bufferline.nvim",
-    enabled = true
+  "akinsho/bufferline.nvim",
+  cond = function()
+    return not vim.g.vscode
+  end,
+  enabled = true,
 }

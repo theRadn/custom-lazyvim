@@ -1,6 +1,5 @@
 return {
-  'aaronik/treewalker.nvim',
-
-  -- optional (see options below)
-  opts = { ... }
+  "aaronik/treewalker.nvim",
+  vscode = true,
+  opts = { ... },
 }

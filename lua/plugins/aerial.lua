@@ -1,6 +1,8 @@
-return
-{
+return {
   "stevearc/aerial.nvim",
+  cond = function()
+    return not vim.g.vscode
+  end,
   event = "LazyFile",
   opts = function()
     local icons = vim.deepcopy(LazyVim.config.icons.kinds)
