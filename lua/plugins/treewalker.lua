@@ -1,5 +1,7 @@
 return {
   "aaronik/treewalker.nvim",
   vscode = true,
-  opts = { ... },
+  opts = {
+    select = true,
+  },
 }
