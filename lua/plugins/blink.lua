@@ -12,10 +12,10 @@ return {
       keyword = { range = "full" },
       list = {
         selection = {
-          preselect = function()
-            return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
-          end,
-          -- preselect = false,
+          -- preselect = function()
+          --   return not vim.tbl_contains({ "txt", "text", "markdown" }, vim.bo.filetype)
+          -- end,
+          preselect = false,
           auto_insert = false,
         },
       },
@@ -82,7 +82,7 @@ return {
     keymap = {
       preset = "none",
       ["<Tab>"] = {
-        LazyVim.cmp.map({ "ai_accept", "ai_nes" }),
+        LazyVim.cmp.map({ "snippet_forward", "ai_accept", "ai_nes" }),
         "fallback",
       },
       ["<C-n>"] = { "select_next", "fallback" },
