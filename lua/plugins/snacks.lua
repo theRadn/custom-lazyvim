@@ -16,6 +16,27 @@ return {
           },
         },
       },
+      sources = {
+        explorer = {
+          actions = {
+            copy_files_content = function()
+              require("util.file-reader").copy_explorer_files_content()
+            end,
+          },
+          win = {
+            input = {
+              keys = {
+                ["o"] = { "copy_files_content", mode = { "n" } },
+              },
+            },
+            list = {
+              keys = {
+                ["o"] = "copy_files_content",
+              },
+            },
+          },
+        },
+      },
     },
     notifier = {
       enabled = true,
