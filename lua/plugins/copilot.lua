@@ -3,6 +3,10 @@ return {
   dependencies = {
     {
       "copilotlsp-nvim/copilot-lsp",
+      init = function()
+        vim.g.copilot_nes_debounce = 500
+        vim.lsp.enable("copilot_ls")
+      end,
       opts = {
         nes = {
           move_count_threshold = 9999,
@@ -10,6 +14,9 @@ return {
       },
     },
   },
+  cond = function()
+    return not vim.g.vscode
+  end,
   enabled = true,
   cmd = "Copilot",
   event = "InsertEnter",
@@ -19,6 +26,9 @@ return {
       auto_trigger = true,
     },
     panel = {
+      enabled = false,
+    },
+    nes = {
       enabled = false,
     },
     server_opts_overrides = {

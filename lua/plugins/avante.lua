@@ -2,6 +2,9 @@ return {
   "yetone/avante.nvim",
   build = false, -- bulid manually in ~/.local/share/nvim/lazy/avante.nvim and run make BUILD_FROM_SOURCE=true
   mode = "legacy", -- legacy | agentic
+  cond = function()
+    return not vim.g.vscode
+  end,
   opts = {
     provider = "celeris",
     providers = {
@@ -24,7 +27,7 @@ return {
     behaviour = {
       auto_suggestions = false,
       auto_add_current_file = false,
-      auto_apply_diff_after_generation = true,
+      auto_apply_diff_after_generation = false,
       auto_approve_tool_permissions = false,
       enable_fastapply = false,
     },
@@ -35,11 +38,11 @@ return {
       -- "write_to_file",
       -- "undo_edit",
       -- "edit_file",
-      -- "view",
-      -- "bash",
-      -- "grep",
-      -- "glob",
-      -- "get_diagnostics",
+      "view",
+      "bash",
+      "grep",
+      "glob",
+      "get_diagnostics",
     },
   },
 }
