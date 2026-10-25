@@ -9,29 +9,34 @@ return {
       },
     },
     picker = {
+      actions = {
+            },
       win = {
         input = {
           keys = {
             ["<C-h>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "delete word" },
+            ["<C-y>"] = {
+              function(p)
+                require("util.file-reader").copy_selected_contents(p, true)
+              end,
+              mode = { "n", "i" },
+            },
           },
         },
       },
       sources = {
         explorer = {
-          actions = {
-            copy_files_content = function()
-              require("util.file-reader").copy_explorer_files_content()
-            end,
-          },
           win = {
             input = {
-              keys = {
-                ["o"] = { "copy_files_content", mode = { "n" } },
-              },
             },
             list = {
               keys = {
-                ["o"] = "copy_files_content",
+                ["<C-y>"] = {
+                  function(p)
+                    require("util.file-reader").copy_selected_contents(p, false)
+                  end,
+                  mode = { "n", "i" },
+                },
               },
             },
           },

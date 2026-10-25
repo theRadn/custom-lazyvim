@@ -58,10 +58,6 @@ vim.keymap.set("n", "<leader>rr", function()
   require("util.run-code").run()
 end, { desc = "Run Code in Snacks" })
 
-vim.keymap.set("n", "<leader>fy", function()
-  require("util.file-reader").copy_picker_file_content()
-end, { desc = "Copy Multiple File Contents to Clipboard" })
-
 vim.keymap.set("n", "<leader>fl", function()
   require("util.format-list").expand_inline_list()
 end, { desc = "Expand / format inline list" })
