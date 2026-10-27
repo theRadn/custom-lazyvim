@@ -78,6 +78,10 @@ end, { desc = "Search Treesitter Nodes" })
 --   Snacks.picker.treesitter({ filter = { [ft] = true } })
 -- end, { desc = "Search All Treesitter Nodes" })
 
+-- snacks-call-hierarchy
+vim.keymap.set("n", "<leader>ci", function() Snacks.picker.call_hierarchy_in() end,  { desc = "Incoming call hierarchy" })
+vim.keymap.set("n", "<leader>cu", function() Snacks.picker.call_hierarchy_out() end, { desc = "Outgoing call hierarchy" })
+
 -- treewalker
 -- movement
 vim.keymap.set({ 'n', 'v' }, '<Up>', '<cmd>Treewalker Up<cr>', { silent = true })
