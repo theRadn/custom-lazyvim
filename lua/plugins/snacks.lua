@@ -9,8 +9,6 @@ return {
       },
     },
     picker = {
-      actions = {
-            },
       win = {
         input = {
           keys = {
@@ -27,8 +25,6 @@ return {
       sources = {
         explorer = {
           win = {
-            input = {
-            },
             list = {
               keys = {
                 ["<C-y>"] = {
@@ -37,6 +33,13 @@ return {
                   end,
                   mode = { "n", "i" },
                 },
+                ["Z"] = function(picker)
+                  require("util.snacks-util").expand_all_folders(picker)
+                end,
+                ["z"] = "explorer_close_all",
+                ["L"] = function(picker)
+                  require("util.snacks-util").expand_selected_folder(picker)
+                end,
               },
             },
           },
