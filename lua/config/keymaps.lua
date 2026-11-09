@@ -10,6 +10,7 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true })
+vim.keymap.set({ "n", "v" }, "<C-S-v>", '"+p', { noremap = true })
 
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
 
@@ -54,6 +55,51 @@ end, { desc = "Terminal in file directory" })
 -- vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
 -- vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
 
+-- diffview-plus
+vim.keymap.set("n", "<leader>gh", "<cmd>DiffviewFileHistory<CR>", { desc = "Diffview Repo History" })
+
+-- Run the git diff command and capture output as a list of lines
+vim.keymap.set("n", "<leader>gr", function()
+  vim.ui.input({ prompt = "Diff against commit/unstaged (default HEAD): " }, function(input)
+    if input == nil then
+      return
+    end -- User cancelled with ESC
+
+    -- If user just hit enter, input is "HEAD", so run standard git diff for unstaged changes.
+    -- Otherwise, compare HEAD~N to HEAD based on what they typed.
+    local cmd
+    if input == "HEAD" or input == "" then
+      cmd = "git diff"
+    else
+      local n = tonumber(input)
+      if n and n >= 1 then
+        cmd = string.format("git diff HEAD~%d HEAD", n)
+      else
+        cmd = "git diff " .. input -- Allows arbitrary commit hashes or refs if needed
+      end
+    end
+
+    local handle = io.popen(cmd)
+    if not handle then
+      vim.notify("Failed to run git diff", vim.log.levels.ERROR)
+      return
+    end
+    local result = handle:read("*a")
+    handle:close()
+
+    local lines = vim.split(result, "\n", { plain = true })
+
+    vim.cmd("enew")
+    local buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+    vim.bo[buf].filetype = "git"
+    vim.bo[buf].buftype = "nofile"
+    vim.bo[buf].swapfile = false
+    vim.bo[buf].readonly = true
+  end)
+end, { desc = "Git diff (default unstaged changes)" })
+
 vim.keymap.set("n", "<leader>rr", function()
   require("util.run-code").run()
 end, { desc = "Run Code in Snacks" })
@@ -79,20 +125,24 @@ end, { desc = "Search Treesitter Nodes" })
 -- end, { desc = "Search All Treesitter Nodes" })
 
 -- snacks-call-hierarchy
-vim.keymap.set("n", "<leader>ci", function() Snacks.picker.call_hierarchy_in() end,  { desc = "Incoming call hierarchy" })
-vim.keymap.set("n", "<leader>cu", function() Snacks.picker.call_hierarchy_out() end, { desc = "Outgoing call hierarchy" })
+vim.keymap.set("n", "<leader>ci", function()
+  Snacks.picker.call_hierarchy_in()
+end, { desc = "Incoming call hierarchy" })
+vim.keymap.set("n", "<leader>cu", function()
+  Snacks.picker.call_hierarchy_out()
+end, { desc = "Outgoing call hierarchy" })
 
 -- treewalker
 -- movement
-vim.keymap.set({ 'n', 'v' }, '<Up>', '<cmd>Treewalker Up<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<Down>', '<cmd>Treewalker Down<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<Left>', '<cmd>Treewalker Left<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<Right>', '<cmd>Treewalker Right<cr>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<Up>", "<cmd>Treewalker Up<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Down>", "<cmd>Treewalker Down<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Left>", "<cmd>Treewalker Left<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Right>", "<cmd>Treewalker Right<cr>", { silent = true })
 -- swapping
-vim.keymap.set('n', '<S-Up>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
-vim.keymap.set('n', '<S-Down>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
-vim.keymap.set('n', '<S-Left>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
-vim.keymap.set('n', '<S-Right>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
+vim.keymap.set("n", "<S-Up>", "<cmd>Treewalker SwapUp<cr>", { silent = true })
+vim.keymap.set("n", "<S-Down>", "<cmd>Treewalker SwapDown<cr>", { silent = true })
+vim.keymap.set("n", "<S-Left>", "<cmd>Treewalker SwapLeft<cr>", { silent = true })
+vim.keymap.set("n", "<S-Right>", "<cmd>Treewalker SwapRight<cr>", { silent = true })
 
 -- copilot
 vim.keymap.set("n", "<leader>ct", function()
@@ -108,19 +158,17 @@ end, { desc = "Toggle Copilot Auto-Trigger with Message" })
 -- terminal
 vim.keymap.set({ "n", "t" }, "<M-o>", function()
   local current_file = vim.fn.expand("%:p")
-  local cwd = (current_file ~= "" and vim.bo.buftype == "") 
-    and vim.fn.fnamemodify(current_file, ":h") 
+  local cwd = (current_file ~= "" and vim.bo.buftype == "") and vim.fn.fnamemodify(current_file, ":h")
     or (vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json" }) or vim.fn.getcwd())
-  Snacks.terminal.open(nil, { 
-    win = { position = "bottom", width = 0.4 }, 
-    cwd = cwd 
+  Snacks.terminal.open(nil, {
+    win = { position = "bottom", width = 0.4 },
+    cwd = cwd,
   })
 end, { desc = "New Terminal (Bottom)" })
 
 vim.keymap.set({ "n", "t" }, "<M-i>", function()
   local current_file = vim.fn.expand("%:p")
-  local cwd = (current_file ~= "" and vim.bo.buftype == "") 
-    and vim.fn.fnamemodify(current_file, ":h") 
+  local cwd = (current_file ~= "" and vim.bo.buftype == "") and vim.fn.fnamemodify(current_file, ":h")
     or (vim.fs.root(0, { ".git", "Cargo.toml", "go.mod", "package.json" }) or vim.fn.getcwd())
   Snacks.terminal.open(nil, { win = { position = "right", width = 0.4 }, cwd = cwd })
 end, { desc = "New Terminal (Right)" })
@@ -136,33 +184,33 @@ end, { desc = "Kill Terminal Process & Close" })
 
 -- vscode
 if vim.g.vscode then
-    local vscode = require('vscode')
+  local vscode = require("vscode")
 
-    vim.keymap.set('n', '<leader><leader>', function()
-        -- vscode.call('fzf-quick-open.runFzfFileProjectRoot')
-        vscode.call('workbench.action.quickOpen')
-    end)
-    vim.keymap.set('n', '<leader>sg', function()
-        -- vscode.call('fzf-quick-open.runFzfSearchProjectRoot')
-        -- vscode.call('workbench.action.quickTextSearch')
-        vscode.call('periscope.search')
-    end)
-    vim.keymap.set('n', '<leader>a', function()
-        vscode.call('workbench.action.gotoSymbol')
-    end)
-    vim.keymap.set('n', '<leader>bd', function()
-        vscode.call('workbench.action.closeActiveEditor')
-    end)
-    vim.keymap.set('n', '<leader>bo', function()
-        vscode.call('workbench.action.closeOtherEditors')
-    end)
-    vim.keymap.set('n', "'", function()
-        vscode.call('oil-code.open')
-    end)
-    vim.keymap.set('n', "<cr>", function()
-        vscode.call('oil-code.select')
-    end)
-    vim.keymap.set('n', '<leader>rr', function()
-        vscode.call('code-runner.run')
-    end)
+  vim.keymap.set("n", "<leader><leader>", function()
+    -- vscode.call('fzf-quick-open.runFzfFileProjectRoot')
+    vscode.call("workbench.action.quickOpen")
+  end)
+  vim.keymap.set("n", "<leader>sg", function()
+    -- vscode.call('fzf-quick-open.runFzfSearchProjectRoot')
+    -- vscode.call('workbench.action.quickTextSearch')
+    vscode.call("periscope.search")
+  end)
+  vim.keymap.set("n", "<leader>a", function()
+    vscode.call("workbench.action.gotoSymbol")
+  end)
+  vim.keymap.set("n", "<leader>bd", function()
+    vscode.call("workbench.action.closeActiveEditor")
+  end)
+  vim.keymap.set("n", "<leader>bo", function()
+    vscode.call("workbench.action.closeOtherEditors")
+  end)
+  vim.keymap.set("n", "'", function()
+    vscode.call("oil-code.open")
+  end)
+  vim.keymap.set("n", "<cr>", function()
+    vscode.call("oil-code.select")
+  end)
+  vim.keymap.set("n", "<leader>rr", function()
+    vscode.call("code-runner.run")
+  end)
 end
