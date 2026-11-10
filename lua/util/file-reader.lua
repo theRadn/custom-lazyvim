@@ -70,7 +70,8 @@ end
 
 function M.copy_selected_contents(picker, should_close)
   if type(picker) ~= "table" or not picker.selected then
-    picker = require("snacks").picker.get()[1]
+    local pickers = require("snacks").picker.get()
+    picker = vim.iter(pickers):find(function(p) return p:is_focused() end) or pickers[#pickers]
   end
 
   if not picker then

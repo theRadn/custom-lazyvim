@@ -3,7 +3,7 @@ local M = {}
 function M.expand_all_folders(picker)
   local Tree = require("snacks.explorer.tree")
   local Actions = require("snacks.explorer.actions")
-  picker = require("snacks").picker.get()[1]
+  picker = require("snacks").picker.get({ source = "explorer" })[1]
   local root = Tree:find(picker:cwd())
 
   Tree:walk(root, function(node)
@@ -19,7 +19,7 @@ end
 M.expand_selected_folder = function(picker)
   local Tree = require("snacks.explorer.tree")
   local Actions = require("snacks.explorer.actions")
-  picker = require("snacks").picker.get()[1]
+  picker = require("snacks").picker.get({ source = "explorer" })[1]
 
   local item = picker:current()
   local root = Tree:find(item.file)
