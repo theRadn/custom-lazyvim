@@ -4,9 +4,6 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    event = "BufReadPre",
-    config = function()
-      require("guess-indent").setup({})
-    end,
+    opts = {},
   },
 }
