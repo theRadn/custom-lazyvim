@@ -25,6 +25,12 @@ return {
               end,
               mode = { "n", "i" },
             },
+            ["<C-s>"] = {
+              function(p)
+                require("util.file-symbols").copy_selected_symbols(p, true)
+              end,
+              mode = { "n", "i" },
+            },
           },
         },
       },
@@ -42,6 +48,12 @@ return {
                 ["<C-p>"] = {
                   function(p)
                     require("util.file-path").copy_selected_paths(p, false)
+                  end,
+                  mode = { "n", "i" },
+                },
+                ["<C-s>"] = {
+                  function(p)
+                    require("util.file-symbols").copy_selected_symbols(p, false)
                   end,
                   mode = { "n", "i" },
                 },
