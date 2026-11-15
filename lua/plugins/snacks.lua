@@ -19,6 +19,12 @@ return {
               end,
               mode = { "n", "i" },
             },
+            ["<C-p>"] = {
+              function(p)
+                require("util.file-path").copy_selected_paths(p, true)
+              end,
+              mode = { "n", "i" },
+            },
           },
         },
       },
@@ -30,6 +36,12 @@ return {
                 ["<C-y>"] = {
                   function(p)
                     require("util.file-reader").copy_selected_contents(p, false)
+                  end,
+                  mode = { "n", "i" },
+                },
+                ["<C-p>"] = {
+                  function(p)
+                    require("util.file-path").copy_selected_paths(p, false)
                   end,
                   mode = { "n", "i" },
                 },

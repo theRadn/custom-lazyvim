@@ -39,6 +39,12 @@ if vim.g.neovide then
   end)
 end
 
+-- utils
+vim.keymap.set('n', '<leader><C-y>', function()
+  require('util.file-reader').copy_current_buffer()
+end, { desc = "Copy current file to clipboard" })
+
+
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<leader>'", "<cmd>cd %:p:h<cr>", { desc = "Change directory to current file" })

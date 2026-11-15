@@ -71,7 +71,9 @@ end
 function M.copy_selected_contents(picker, should_close)
   if type(picker) ~= "table" or not picker.selected then
     local pickers = require("snacks").picker.get()
-    picker = vim.iter(pickers):find(function(p) return p:is_focused() end) or pickers[#pickers]
+    picker = vim.iter(pickers):find(function(p)
+      return p:is_focused()
+    end) or pickers[#pickers]
   end
 
   if not picker then
@@ -104,6 +106,32 @@ function M.copy_selected_contents(picker, should_close)
       picker:close()
     end
   end
+end
+
+function M.copy_current_buffer()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local path = vim.api.nvim_buf_get_name(bufnr)
+
+  if path == "" then
+    vim.notify("Current buffer is not a file", vim.log.levels.WARN)
+    return
+  end
+
+  if vim.bo[bufnr].buftype ~= "" then
+    vim.notify("Current buffer is not a normal file buffer", vim.log.levels.WARN)
+    return
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local content = table.concat(lines, "\n")
+
+  local display_path = vim.fn.fnamemodify(path, ":.")
+
+  local compiled = {
+    string.format("--- FILE: %s ---\n%s", display_path, content),
+  }
+
+  M.copy_to_clipboard(compiled)
 end
 
 return M
