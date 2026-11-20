@@ -44,6 +44,22 @@ vim.keymap.set('n', '<leader><C-y>', function()
   require('util.file-reader').copy_current_buffer()
 end, { desc = "Copy current file to clipboard" })
 
+-- Custom LLM
+vim.keymap.set("n", "<leader>as", function()
+  require("util.custom-llm").setup_buffer()
+end, { desc = "Setup new buffer for custom llm" })
+vim.keymap.set("n", "<leader>ah", function()
+  require("util.custom-llm").get_chat_history()
+end, { desc = "Get chat history" })
+vim.keymap.set("n", "<leader>at", function()
+  require("util.custom-llm").count_tokens()
+end, { desc = "Count tokens" })
+vim.keymap.set("n", "<leader>ac", function()
+  require("util.custom-llm").send_chat()
+end, { desc = "Send chat message" })
+vim.keymap.set("n", "<leader>am", function()
+  require("util.custom-llm").select_model()
+end, { desc = "Select AI model" })
 
 -- oil
 vim.keymap.set("n", "'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
