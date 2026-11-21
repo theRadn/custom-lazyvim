@@ -7,9 +7,9 @@ M.config_collection = {
     model = "gpt-4o-mini",
   },
   {
-    endpoint = "http://localhost:11434/v1/completions", -- Ollama local server
+    endpoint = "http://localhost:11434/v1/chat/completions", -- Ollama local server
     api_key = "", -- Ollama does not require an API key for local usage
-    model = "llama2",
+    model = "lfm2.5:8b-a1b-q4_K_M",
   },
   {
     endpoint = "https://maas.qwencloudapi.com/compatible-mode/v1/chat/completions",
